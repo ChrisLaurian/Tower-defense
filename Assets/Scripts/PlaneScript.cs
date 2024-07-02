@@ -4,25 +4,21 @@ using UnityEngine;
 
 public class PlaneScript : MonoBehaviour
 {
-    public Vector2 ShadowOffset;
+    public Vector2 ShadowOffset;  // Desplazamiento del sombreado relativo al avión
 
-    private Transform shadow;
-    private Quaternion prevRotation = Quaternion.identity;
-    
-	void Start ()
+    private Transform shadow;     // Referencia al objeto de sombra
+    private Quaternion prevRotation = Quaternion.identity;  // Rotación previa del avión
+
+    void Start()
     {
-        shadow = transform.Find("Shadow");
-	}
-	
-	void FixedUpdate ()
+        shadow = transform.Find("Shadow");  // Encuentra el objeto sombra bajo la jerarquía del avión
+    }
+
+    void FixedUpdate()
     {
-        //var rotationChange = Mathf.Abs(prevRotation.eulerAngles.z - transform.rotation.eulerAngles.z);
+        shadow.position = transform.position + (Vector3)ShadowOffset;  // Establece la posición de la sombra relativa al avión
+        shadow.rotation = transform.rotation;  // Alinea la rotación de la sombra con la rotación del avión
 
-        //var scale = transform.localScale.y * 0.9f + (1.0f - 0.5f * Mathf.Min(rotationChange, 1.0f)) * 0.1f;
-        //transform.localScale = new Vector3(1.0f, scale, 1.0f);
-        shadow.position = transform.position + (Vector3)ShadowOffset;
-        shadow.rotation = transform.rotation;
-
-        prevRotation = transform.rotation;
-	}
+        prevRotation = transform.rotation;  // Actualiza la rotación previa con la rotación actual del avión
+    }
 }

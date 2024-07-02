@@ -3,35 +3,40 @@ using UnityEngine.UI;
 
 public class HealthDrawerScript : MonoBehaviour
 {
-    public Sprite FullHeart;
-    public Sprite EmptyHeart;
+    public Sprite FullHeart;         // Sprite para el corazón lleno.
+    public Sprite EmptyHeart;        // Sprite para el corazón vacío.
 
-    public GameObject[] HeartObjects;
-    private Image[] Hearts;
+    public GameObject[] HeartObjects;    // Arreglo de objetos GameObject que representan los corazones.
+    private Image[] Hearts;               // Arreglo de componentes Image para los corazones.
 
+    // Método para dibujar los corazones según el número de vidas.
     public void Draw(int lives)
     {
-        for(int i = 0; i < lives; i++)
+        // Dibuja los corazones llenos hasta el número de vidas actual.
+        for (int i = 0; i < lives; i++)
         {
             Hearts[i].sprite = FullHeart;
         }
 
-        for(int i = lives; i < Hearts.Length; i++)
+        // Dibuja los corazones restantes como vacíos.
+        for (int i = lives; i < Hearts.Length; i++)
         {
             Hearts[i].sprite = EmptyHeart;
         }
     }
 
-    // Use this for initialization
-    void OnEnable ()
+    // Método llamado al activar el script.
+    void OnEnable()
     {
-        Hearts = new Image[HeartObjects.Length];
+        Hearts = new Image[HeartObjects.Length]; // Inicializa el arreglo Hearts con el tamaño de HeartObjects.
 
-        for(int i = 0; i < 5; i++)
+        // Asigna los componentes Image de los GameObjects HeartObjects a Hearts.
+        for (int i = 0; i < HeartObjects.Length; i++)
         {
             Hearts[i] = HeartObjects[i].GetComponent<Image>();
         }
 
+        // Dibuja inicialmente todos los corazones llenos.
         Draw(Hearts.Length);
     }
 }

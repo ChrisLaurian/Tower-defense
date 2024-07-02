@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+// Este script gestiona y controla los enemigos en el juego.
 public class EnemyManagerScript : MonoBehaviour
 {
+    // Instancia estática del EnemyManagerScript.
     private static EnemyManagerScript enemyManagerInstance;
+
+    // Propiedad para obtener la instancia única del EnemyManagerScript.
     public static EnemyManagerScript Instance
     {
         get
@@ -17,11 +21,13 @@ public class EnemyManagerScript : MonoBehaviour
         }
     }
 
+    // Clase privada que representa un par de enemigo y distancia.
     private class EnemyDistancePair
     {
-        public GameObject Enemy;
-        public float Distance;
+        public GameObject Enemy; // Objeto del enemigo.
+        public float Distance;   // Distancia del enemigo desde algún punto.
 
+        // Constructor que inicializa el par de enemigo y distancia.
         public EnemyDistancePair(GameObject enemy, float distance)
         {
             Enemy = enemy;
@@ -29,23 +35,28 @@ public class EnemyManagerScript : MonoBehaviour
         }
     }
 
+    // Diccionario que mapea cada enemigo a su respectivo par de enemigo y distancia.
     private Dictionary<GameObject, EnemyDistancePair> enemies = new Dictionary<GameObject, EnemyDistancePair>();
 
+    // Método para registrar un nuevo enemigo.
     public void RegisterEnemy(GameObject enemy)
     {
         enemies.Add(enemy, new EnemyDistancePair(enemy, 0));
     }
 
+    // Método para eliminar un enemigo registrado.
     public void DeleteEnemy(GameObject enemy)
     {
         enemies.Remove(enemy);
     }
 
+    // Método para actualizar la distancia de un enemigo.
     public void UpdateEnemy(GameObject enemy, float distance)
     {
         enemies[enemy].Distance = distance;
     }
 
+    // Método para obtener un enemigo dentro de un rango específico y con etiquetas especificadas.
     public GameObject GetEnemyInRange(Vector2 position, float range, IEnumerable<string> enemyTags)
     {
         return enemies.Values
@@ -55,6 +66,7 @@ public class EnemyManagerScript : MonoBehaviour
             .FirstOrDefault();
     }
 
+    // Método para obtener el enemigo más cercano dentro de un rango específico y con etiquetas especificadas.
     public GameObject GetClosestEnemyInRange(Vector2 position, float range, IEnumerable<string> enemyTags)
     {
         return enemies.Values

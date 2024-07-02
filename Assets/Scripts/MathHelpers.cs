@@ -1,11 +1,10 @@
-﻿using System;
-using UnityEngine;
-
+﻿using UnityEngine;
 
 namespace Assets.Scripts
 {
     static class MathHelpers
     {
+        // Calcula el ángulo en grados entre dos vectores 2D.
         static public float Angle(Vector2 a, Vector2 b)
         {
             var an = a.normalized;
@@ -15,7 +14,8 @@ namespace Assets.Scripts
             return Mathf.Atan2(y, x) * Mathf.Rad2Deg;
         }
 
-        public static Texture2D textureFromSprite(Sprite sprite)
+        // Convierte un Sprite en una Textura2D.
+        public static Texture2D TextureFromSprite(Sprite sprite)
         {
             if (sprite.rect.width != sprite.texture.width)
             {
@@ -29,10 +29,13 @@ namespace Assets.Scripts
                 return newText;
             }
             else
+            {
                 return sprite.texture;
+            }
         }
 
-        // https://stackoverflow.com/questions/5817490/implementing-box-mueller-random-number-generator-in-c-sharp
+        // Genera un número aleatorio con distribución gaussiana (normal) usando el método de Box-Muller.
+        // Retorna un número aleatorio con distribución gaussiana estándar (media 0, desviación estándar 1).
         public static float NextGaussianDouble()
         {
             float u, v, S;
@@ -49,6 +52,7 @@ namespace Assets.Scripts
             return u * fac;
         }
 
+        // Rotar un vector en 2D por una cantidad de grados.
         public static Vector2 Rotate(this Vector2 v, float degrees)
         {
             float sin = Mathf.Sin(degrees * Mathf.Deg2Rad);
